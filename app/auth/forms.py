@@ -6,63 +6,62 @@ from ..models import User
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Length(1, 64),
+    email = StringField('E-mail', validators=[DataRequired(), Length(1, 64),
                                              Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('Keep me logged in')
-    submit = SubmitField('Log In')
+    password = PasswordField('Senha', validators=[DataRequired()])
+    remember_me = BooleanField('Me manter conectado(a)')
+    submit = SubmitField('Entrar')
 
 
 class RegistrationForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Length(1, 64),
+    email = StringField('E-mail', validators=[DataRequired(), Length(1, 64),
                                              Email()])
-    username = StringField('Username', validators=[
+    username = StringField('Nome de Usuário', validators=[
         DataRequired(), Length(1, 64),
-        Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
-               'Usernames must have only letters, numbers, dots or '
-               'underscores')])
-    password = PasswordField('Password', validators=[
-        DataRequired(), EqualTo('password2', message='Passwords must match.')])
-    password2 = PasswordField('Confirm password', validators=[DataRequired()])
-    submit = SubmitField('Register')
+        Regexp('^[A-Za-z][A-Za-z0-9._ ]*$', 0,
+               'Os nomes de usuário devem conter apenas letras, números, pontos ou sublinhados')])
+    password = PasswordField('Senha', validators=[
+        DataRequired(), EqualTo('password2', message='As senhas devem corresponder.')])
+    password2 = PasswordField('Confirme sua senha', validators=[DataRequired()])
+    submit = SubmitField('Cadastrar')
 
     def validate_email(self, field):
         if User.query.filter_by(email=field.data.lower()).first():
-            raise ValidationError('Email already registered.')
+            raise ValidationError('E-mail já cadastrado.')
 
     def validate_username(self, field):
         if User.query.filter_by(username=field.data).first():
-            raise ValidationError('Username already in use.')
+            raise ValidationError('Nome de usuário já em uso.')
 
 
 class ChangePasswordForm(FlaskForm):
-    old_password = PasswordField('Old password', validators=[DataRequired()])
-    password = PasswordField('New password', validators=[
-        DataRequired(), EqualTo('password2', message='Passwords must match.')])
-    password2 = PasswordField('Confirm new password',
+    old_password = PasswordField('Senha Antiga', validators=[DataRequired()])
+    password = PasswordField('Nova Senha', validators=[
+        DataRequired(), EqualTo('password2', message='As senhas devem corresponder.')])
+    password2 = PasswordField('Confirmar nova senha',
                               validators=[DataRequired()])
-    submit = SubmitField('Update Password')
+    submit = SubmitField('Atualizar Senha')
 
 
 class PasswordResetRequestForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Length(1, 64),
+    email = StringField('E-mail', validators=[DataRequired(), Length(1, 64),
                                              Email()])
-    submit = SubmitField('Reset Password')
+    submit = SubmitField('Redefinir Senha')
 
 
 class PasswordResetForm(FlaskForm):
-    password = PasswordField('New Password', validators=[
-        DataRequired(), EqualTo('password2', message='Passwords must match')])
-    password2 = PasswordField('Confirm password', validators=[DataRequired()])
-    submit = SubmitField('Reset Password')
+    password = PasswordField('Nova Senha', validators=[
+        DataRequired(), EqualTo('password2', message='As senhas devem corresponder.')])
+    password2 = PasswordField('Confirmar Senha', validators=[DataRequired()])
+    submit = SubmitField('Redefinir Senha')
 
 
 class ChangeEmailForm(FlaskForm):
-    email = StringField('New Email', validators=[DataRequired(), Length(1, 64),
+    email = StringField('Novo E-mail', validators=[DataRequired(), Length(1, 64),
                                                  Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Update Email Address')
+    password = PasswordField('Senha', validators=[DataRequired()])
+    submit = SubmitField('Atualizar endereço de e-mail')
 
     def validate_email(self, field):
         if User.query.filter_by(email=field.data.lower()).first():
-            raise ValidationError('Email already registered.')
+            raise ValidationError('E-mail já cadastrado.')

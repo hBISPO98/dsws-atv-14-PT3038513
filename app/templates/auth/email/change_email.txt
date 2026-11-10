@@ -1,11 +1,11 @@
-Dear {{ user.username }},
+Querido(a) {{ user.username }},
 
-To confirm your new email address click on the following link:
+Para confirmar o seu novo endereço de e-mail, clique no seguinte link:
 
-{{ url_for('auth.change_email', token=token, _external=True) }}
+{{ url_for('auth.confirm', token=token, _external=True) }}
 
-Sincerely,
+Atenciosamente,
 
-The Flasky Team
+Equipe Flasky
 
-Note: replies to this email address are not monitored.
+Observação: as respostas para este endereço de e-mail não são monitoradas.

@@ -1,13 +1,13 @@
-Dear {{ user.username }},
+Querido(a) {{ user.username }},
 
-Welcome to Flasky!
+Bem vindo(a) ao Flasky!
 
-To confirm your account please click on the following link:
+Valide sua conta clicando no seguinte link:
 
 {{ url_for('auth.confirm', token=token, _external=True) }}
 
-Sincerely,
+Atenciosamente,
 
-The Flasky Team
+Equipe Flasky
 
-Note: replies to this email address are not monitored.
+Observação: as respostas para este endereço de e-mail não são monitoradas.
